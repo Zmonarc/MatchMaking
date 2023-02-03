@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Couple Compability Tester</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input {
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      button {
+        margin: 10px 0;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #00bfff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Couple Compability Tester</h1>
+    <p>Zmonarc</p>
+    <input type="text" id="input1" placeholder="Enter name: ">
+    <input type="text" id="input2" placeholder="Enter name: ">
+    <button id="match-button">Match!</button>
+    <p id="result"></p>
+    <h2>Result History:</h2>
+    <ul id="history"></ul>
+
+    <script>
+      const matchButton = document.querySelector("#match-button");
+      const result = document.querySelector("#result");
+      const history = document.querySelector("#history");
+      const adjectives = ["perfect", "amazing", "outstanding", "fantastic", "terrific", "incredible", "unbelievable"];
+      const adverbs = ["truly", "definitely", "absolutely", "certainly", "positively", "undoubtedly"];
+
+      matchButton.addEventListener("click", function () {
+        const name1 = document.querySelector("#input1").value;
+        const name2 = document.querySelector("#input2").value;
+        const randomPercentage = Math.floor(Math.random() * 101);
+        const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
+        const randomAdverbIndex = Math.floor(Math.random() * adverbs.length);
+        if (randomPercentage < 50) {
+          result.innerHTML = `${name1} & ${name2} are Not Compatible. Our matchmaker gives them a compatibility score of ${randomPercentage}%.`;
+        } else {
+          result.innerHTML = `${name1} & ${name2} are ${adverbs[randomAdverbIndex]} ${adjectives[randomAdjectiveIndex]}! Our matchmaker gives them a compatibility score of ${randomPercentage}%.`;
+        }
+
+        // Add result to history
+        const newResult = document.createElement("li");
+        newResult.innerHTML = result.innerHTML;
+        history.prepend(newResult);
+
+        // Limit history to five items
+        while (history.childNodes.length > 5) {
+          history.removeChild(history.lastChild);
+        }
+      });
+    </script>
+  </body>
+</html>
